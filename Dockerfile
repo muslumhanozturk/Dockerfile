@@ -7,5 +7,5 @@ RUN javac uygulama.java
 
 FROM mcr.microsoft.com/java/jre:8-zulu-alpine    # last from instruction determines file size
 WORKDIR /uygulama
-COPY --from=derleyici /usr/src/uygulama .           # add --from=derleyici
+COPY --from=derleyici /usr/src/uygulama .           # add --from=derleyici  # --from=nginx:latest, it's also possible to pull images from dockerHub.
 CMD ["java" , "uygulama"]
