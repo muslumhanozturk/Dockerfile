@@ -33,3 +33,11 @@ CMD [ "echo", "$TEST" ]   # No shell processes run in exec form, so the process 
 
 ---------------------------------------------------------------------
 
+FROM ubuntu:latest
+WORKDIR /gecici
+ARG VERSION:3.8.1     # It is a variable that allows to assign a value during build      docker image build -t x1 --build-arg VERSION=3.7.1 .
+ADD https://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tgz .
+CMD ls -al
+
+---------------------------------------------------------------------
+
