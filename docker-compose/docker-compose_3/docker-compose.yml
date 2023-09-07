@@ -12,7 +12,7 @@ services:
       - webnet
 
    websrv:
-     build: .
+     build: .       # While creating the service with docker-compose with the build command, create the image of that service using the dockerfile in that folder.
      depends_on:
        - mysqldb
      ports:
