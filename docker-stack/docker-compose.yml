@@ -35,3 +35,6 @@ networks:
   webnet:
     driver: overlay         # <--
 
+# --- docker stack ---
+# docker stack deploy -c ./docker-compose.yml firststack
+
