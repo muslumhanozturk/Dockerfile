@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+    networks:
+      - wp-overlay
+    secrets:
+      - db_root_password
+      - db_password
+
+  wordpress:
+    image: wordpress:latest
+    depends_on:
+      - database
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
+    networks:
+      - wp-overlay
+    secrets:
+      - db_password
+
+secrets:
+   db_password:
+     file: db_password.txt
+   db_root_password:
+     file: db_root_password.txt
+
+networks:
+  wp-overlay:
+    driver: overlay
